@@ -4,17 +4,17 @@
             <div class="avatar">
                 <img src="../assets/avatar.jpg" alt="">
             </div>
-            <el-form class="login_form" :model="loginForm" :rules="loginFormRules">
+            <el-form ref="loginFormRef" class="login_form" :model="loginForm" :rules="loginFormRules">
                 <el-form-item prop="username" >
                     <el-input  prefix-icon="iconfont icon-user" v-model="loginForm.username" placeholder="用户名"></el-input>
                 </el-form-item>
-                <el-form-item prop="passworld" >
-                    <el-input prefix-icon="iconfont icon-3702mima" v-model="loginForm.passwold" placeholder="密码" type="password"></el-input>
+                <el-form-item prop="password" >
+                    <el-input prefix-icon="iconfont icon-3702mima" v-model="loginForm.password" placeholder="密码" type="password"></el-input>
                 </el-form-item>
 
                 <el-form-item class="btns">
-                    <el-button type="primary">登陆</el-button>
-                    <el-button type="success">重置</el-button>
+                    <el-button type="primary" @click="login">登陆</el-button>
+                    <el-button type="success" @click="resetLoginForm">重置</el-button>
                 </el-form-item>
 
             </el-form>
@@ -27,19 +27,36 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '111',
-        passwold: '222'
+        username: 'admin',
+        password: '123456'
       },
       loginFormRules: {
         username: [
           { required: true, message: '请输入登录名称', trigger: 'blur' },
           { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
-        passwold: [
+        password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' },
           { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
+    }
+  },
+  methods: {
+    resetLoginForm () {
+      // 重置表单
+      this.$refs.loginFormRef.resetFields()
+    },
+    login () {
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        console.log(res)
+        if (res.meta.status !== 200) return this.$message.error('登录失败')
+        this.$message.success('登录成功')
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.push('/home')
+      })
     }
   }
 }
@@ -47,7 +64,7 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-    background-color: #2b4b6b;
+    background-color: #a6c0fe;
     height: 100%;
 }
 .login_box{
