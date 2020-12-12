@@ -1,6 +1,9 @@
 # vue_shop
 # 提交远程成功了么？？？
-## 测试
+
+## 页面目录重新规划
+
+## 分支提交测试
 ## Project setup
 ```
 npm install

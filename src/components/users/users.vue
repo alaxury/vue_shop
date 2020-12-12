@@ -165,6 +165,7 @@ export default {
       // 控制添加用户对话框的显示与隐藏
       addDialogVisible: false,
       editDialogVisible: false,
+      rolesList: [],
       // 添加用户的表单数据
       addForm: {
         username: '',

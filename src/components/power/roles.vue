@@ -101,6 +101,7 @@ export default {
     // 获取所有角色的列表
     async getRolesList () {
       const { data: res } = await this.$http.get('roles')
+      console.log('权限', res)
 
       if (res.meta.status !== 200) {
         return this.$message.error('获取角色列表失败！')
@@ -143,7 +144,6 @@ export default {
       this.roleId = role.id
       // 获取所有权限的数据
       const { data: res } = await this.$http.get('rights/tree')
-
       if (res.meta.status !== 200) {
         return this.$message.error('获取权限数据失败！')
       }
