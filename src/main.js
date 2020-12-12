@@ -8,8 +8,12 @@ import TreeTable from 'vue-table-with-tree-grid'
 import './assets/css/global.css'
 // 导入字体图标库
 import './assets/fonts/iconfont.css'
-
 import axios from 'axios'
+
+// 引入echarts
+// import * as echarts from 'echarts'
+const echarts = require('echarts')
+Vue.prototype.$echarts = echarts
 
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 // axios 拦截
