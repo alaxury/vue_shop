@@ -151,7 +151,7 @@ export default {
       // 分配权限
       setRoleDialogVisible: false,
       selectedRoleId: '',
-      userInfo: '',
+      userInfo: {},
       //   获取用户列表的参数对象
       queryInfo: {
         query: '',

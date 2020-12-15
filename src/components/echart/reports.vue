@@ -1,6 +1,14 @@
 <template>
-  <!-- <div id="myChart" :style="{width: '600px', height: '300px'}"></div> -->
-  <div id="myChart" style="width: 1000px;height: 400px"></div>
+  <div>
+    <!-- 面包屑导航 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item>图表 </el-breadcrumb-item>
+    </el-breadcrumb>
+    <div id="myChart" style="width: 1000px; height: 400px"></div>
+    <div id="myChart2" :style="{width: '1000px', height: '400px'}"></div>
+  </div>
 </template>
 <script>
 export default {
@@ -21,9 +29,6 @@ export default {
     }
   },
   async mounted () {
-    console.log(this.a)
-    console.log(this)
-    // 基于准备好的dom，初始化echarts实例
     const myChart = this.$echarts.init(document.getElementById('myChart'))
     const { data: res } = await this.$http.get('reports/type/1')
     if (res.meta.status !== 200) {
@@ -39,27 +44,26 @@ export default {
       }
     }
     myChart.setOption(res.data)
-    // this.drawLine()
+    this.drawLine()
   },
   methods: {
-    // drawLine () {
-    //   const myChart = this.$echarts.init(document.getElementById('myChart'))
-    //   // 绘制图表
-    //   myChart.setOption({
-    //     title: { text: '柱状图' },
-    //     tooltip: {},
-    //     xAxis: {
-    //       data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    //     },
-    //     yAxis: {},
-    //     series: [{
-    //       name: '运行中',
-    //       type: 'bar',
-    //       data: [14, 20, 36, 10, 10, 20]
-    //     }]
-    //   })
-    // }
-
+    drawLine () {
+      const myChart = this.$echarts.init(document.getElementById('myChart2'))
+      // 绘制图表
+      myChart.setOption({
+        title: { text: '柱状图' },
+        tooltip: {},
+        xAxis: {
+          data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        },
+        yAxis: {},
+        series: [{
+          name: '运行中',
+          type: 'bar',
+          data: [14, 20, 36, 10, 10, 20]
+        }]
+      })
+    }
   }
 }
 </script>
